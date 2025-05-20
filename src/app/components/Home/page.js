@@ -12,36 +12,37 @@ const navItems = [
   { name: 'Projects', href: '#projects' },
 ];
 
-const skills = [
-  'Next.js', 'React', 'Node.js', 'MySQL', 'MongoDB', 'Express', 'Git', 'GitHub', 'Jira', 'Machine Learning'
-];
-
-const projects = [
-  {
-    id: 1,
-    title: 'E-Commerce Platform',
-    description: 'A full-stack e-commerce solution with Next.js and MongoDB.',
-    logo: '/dangoo.jpeg',
-    link: 'https://dangooenterprise.vercel.app/',
-  },
-  {
-    id: 2,
-    title: 'Blog Application',
-    description: 'A full-featured blog app built with Next.js, MySQL, and Node.js.',
-    logo: '/silk.jpeg',
-    link: 'https://silk-road-blog-app.vercel.app/',
-  },
-  {
-    id: 3,
-    title: 'Biometric Authentication UI',
-    description: 'A React-based frontend for biometric authentication systems.',
-    logo: '/bio.jpeg',
-    link: 'https://biometric-aunthentication-app.vercel.app/',
-  },
-];
-
 export default function HomePage() {
   const [isContactOpen, setIsContactOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const skills = [
+    'Next.js', 'React', 'Node.js', 'MySQL', 'MongoDB', 'Express', 'Git', 'GitHub', 'Jira', 'Machine Learning'
+  ];
+
+  const projects = [
+    {
+      id: 1,
+      title: 'E-Commerce Platform',
+      description: 'A full-stack e-commerce solution with Next.js and MongoDB.',
+      logo: '/dangoo.jpeg',
+      link: 'https://dangooenterprise.vercel.app/',
+    },
+    {
+      id: 2,
+      title: 'Blog Application',
+      description: 'A full-featured blog app built with Next.js, MySQL, and Node.js.',
+      logo: '/silk.jpeg',
+      link: 'https://silk-road-blog-app.vercel.app/',
+    },
+    {
+      id: 3,
+      title: 'Biometric Authentication UI',
+      description: 'A React-based frontend for biometric authentication systems.',
+      logo: '/bio.jpeg',
+      link: 'https://biometric-aunthentication-app.vercel.app/',
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white">
@@ -68,15 +69,50 @@ export default function HomePage() {
               </button>
             </div>
             <div className="md:hidden">
-              {/* Mobile menu button */}
-              <button className="text-gray-300 hover:text-white">
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="text-gray-300 hover:text-white"
+              >
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+                  {isMobileMenuOpen ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  ) : (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+                  )}
                 </svg>
               </button>
             </div>
           </div>
         </div>
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="md:hidden bg-black/90 px-4 py-6"
+          >
+            {navItems.map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                className="block text-gray-300 hover:text-white py-2 transition-colors duration-300"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {item.name}
+              </Link>
+            ))}
+            <button
+              onClick={() => {
+                setIsContactOpen(true);
+                setIsMobileMenuOpen(false);
+              }}
+              className="block w-full text-left text-gray-300 hover:text-white py-2 transition-colors duration-300"
+            >
+              Contact Me
+            </button>
+          </motion.div>
+        )}
       </nav>
 
       {/* Main Section */}
@@ -122,7 +158,7 @@ export default function HomePage() {
                 </div>
               </div>
               <div>
-                <h3 className="text-2xl font-semibold mb-4">Achievements & Details</h3>
+                <h3 className="text-2xl ofont-semibold mb-4">Achievements & Details</h3>
                 <ul className="list-disc list-inside text-gray-300 space-y-2">
                   <li>5+ years of experience in full-stack web development</li>
                   <li>Led a team to develop an award-winning e-commerce platform</li>
