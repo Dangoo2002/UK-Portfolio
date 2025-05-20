@@ -45,7 +45,7 @@ export default function HomePage() {
 
   const skills = [
     'Next.js', 'React', 'Node.js', 'MySQL', 'MongoDB', 'Express', 'Git', 
-    'GitHub', 'Jira', 'Machine Learning', 'Tailwind CSS', 'TypeScript'
+    'GitHub', 'Jira', 'Machine Learning', 'Tailwind CSS', 'TypeScript', 'Date Science'
   ];
 
   const projects = [
